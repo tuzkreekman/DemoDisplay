@@ -15,6 +15,13 @@ from kivy.properties import ObjectProperty
 
 from kivy.lang import Builder
 
+from fileviewchoose import FileChooserImageView, ImagePreviewEntry
+
+
+def get_image(context):
+    print context
+    return 'atlas://data/images/defaulttheme/filechooser_%s' % ('folder' if context.isdir else 'file')
+
 Builder.load_file('app.kv')
 
 class LoadDialog(FloatLayout):
@@ -108,6 +115,7 @@ class DemoGesture(App):
     def on_stop(self, save=False):
         print 'Quitting'
         super(DemoGesture, self).on_stop()
+ 
 
 if __name__ == '__main__':
     DemoGesture().run()
