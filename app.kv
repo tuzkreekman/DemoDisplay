@@ -1,0 +1,70 @@
+<ExitScreen>:
+    BoxLayout:
+        Button:
+            text: 'Just kidding, go to Main Menu'
+            on_press: root.manager.current = 'menu'
+        Button:
+            text: 'Quit without Saving'
+            on_press: app.stop()
+        Button:
+            text: 'Save & Quit'
+            on_press: app.save_and_quit()
+<MenuScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        Button:
+            size_hint_y: .2
+            text: 'Welcome!'
+        BoxLayout:
+            valign: 'bottom'
+            Button:
+                text: 'Pictures'
+                on_press: root.manager.current = 'pics'
+            Button:
+                text: 'Draw'
+                on_press: root.manager.current = 'canvas'
+            Button:
+                text: 'Exit'
+                on_press: root.manager.current = 'quitter'
+<PicturesScreen>:
+    BoxLayout:
+        Label:
+            size_hint_x: .1
+            text: 'Pick a file to run a model on'
+        BoxLayout:
+            orientation: "vertical"
+            FileChooserIconView:
+                id: filechooser
+
+            BoxLayout:
+                size_hint_y: None
+                height: 30
+                Button:
+                    text: "Cancel"
+                    on_release: root.manager.current = 'menu'
+
+                Button:
+                    text: "Load"
+                    on_release: print(filechooser.path, filechooser.selection)
+
+
+<DrawingScreen>:
+    BoxLayout:
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: .2
+            Button:
+                text: 'Menu'
+                on_press: root.manager.current = 'menu'
+            Button:
+                text: 'Clear'
+                on_press: app.clear()
+        AnchorLayout:
+            padding: 200,10,10,100
+            MNISTCanvas:           
+                id: mnist
+                size: 280, 280
+                valign: 'center'
+                halign: 'right'
+
+
