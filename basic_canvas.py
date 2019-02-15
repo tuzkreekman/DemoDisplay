@@ -23,6 +23,9 @@ class LoadDialog(FloatLayout):
     load = ObjectProperty(None)
     cancel = ObjectProperty(None)
 
+class ProcessingScreen(Screen):
+    pass
+
 class ExitScreen(Screen):
     pass
 
@@ -33,7 +36,8 @@ class DrawingScreen(Screen):
     pass
 
 class PicturesScreen(Screen):
-    pass
+    def process(self, path, name):
+        print path, name
 
 class MNISTCanvas(Widget):
     """
@@ -95,6 +99,7 @@ class DemoGesture(App):
         sm.add_widget(DrawingScreen(name='canvas'))
         sm.add_widget(ExitScreen(name='quitter'))
         sm.add_widget(PicturesScreen(name='pics'))
+        sm.add_widget(ProcessingScreen(name='processing'))
         self.sm = sm
         self.mnist = self.sm.get_screen('canvas').ids.mnist
         return self.sm

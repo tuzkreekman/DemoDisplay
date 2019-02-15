@@ -105,7 +105,7 @@
             orientation: "vertical"
             FileChooserImageView:
                 id: filechooser
-
+				path: "/home/pi/Desktop/DemoDisplay/streetview"
             BoxLayout:
                 size_hint_y: None
                 height: 30
@@ -115,9 +115,18 @@
 
                 Button:
                     text: "Load"
-                    on_release: print(filechooser.path, filechooser.selection)
-
-
+                    on_release: root.process(filechooser.path, filechooser.selection)
+<ProcessingScreen>:
+    BoxLayout:
+        BoxLayout:
+        	Label:
+				text: 'What is this?'
+			Widget:
+				id: testcase
+		BoxLayout:
+			Label:
+				id: guess
+				text: "Please wait"	
 <DrawingScreen>:
     BoxLayout:
         BoxLayout:
