@@ -1,6 +1,8 @@
 import os
 os.environ['KIVY_BCM_DISPMANX_ID'] = '4'
 
+import re
+
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.widget import Widget
@@ -24,7 +26,12 @@ class LoadDialog(FloatLayout):
     cancel = ObjectProperty(None)
 
 class ProcessingScreen(Screen):
-    pass
+    def reset(self):
+		self.ids.testcase.source = 'atlas://data/images/defaulttheme/filechooser_file'
+		self.valid = False
+
+	def process(self, index):
+		print 'Sent index %d for processing' % index
 
 class ExitScreen(Screen):
     pass
@@ -38,6 +45,10 @@ class DrawingScreen(Screen):
 class PicturesScreen(Screen):
     def process(self, path, name):
         print path, name
+		filname = path.split('/').[-1]
+		index = re.search('^svhn_(.)*\.png$', filename)
+		print filename, index.group(0)
+		return index.group(0)
 
 class MNISTCanvas(Widget):
     """

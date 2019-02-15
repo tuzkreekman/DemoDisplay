@@ -47,7 +47,7 @@
             source: 'atlas://data/images/defaulttheme/filechooser_selected'
 
     Image:
-        size: '48dp', '48dp'
+        size: '48dp', '80dp'
         source: root.get_image(ctx)
         pos: root.x + dp(24), root.y + dp(40)
     Label:
@@ -117,12 +117,19 @@
                     text: "Load"
                     on_release: root.process(filechooser.path, filechooser.selection)
 <ProcessingScreen>:
-    BoxLayout:
+	valid: False
+	BoxLayout:
         BoxLayout:
         	Label:
 				text: 'What is this?'
-			Widget:
+			Image:
 				id: testcase
+				size: 280,280
+				pos: root.pos()
+				source: 'atlas://data/images/defaulttheme/filechooser_file'
+			Button:
+				text: 'Menu'
+				on_press: root.reset()
 		BoxLayout:
 			Label:
 				id: guess
@@ -138,6 +145,9 @@
             Button:
                 text: 'Clear'
                 on_press: app.clear()
+            Button:
+	            text: 'Process'
+				on_press: root.process()
         AnchorLayout:
             padding: 200,10,10,100
             MNISTCanvas:           
