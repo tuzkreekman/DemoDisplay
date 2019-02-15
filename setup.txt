@@ -50,3 +50,7 @@ If you experience a segmentation fault, try restarting and running again.
 
 Otherwise try ```sudo pip install kivy``` 
 
+
+## Other packages
+
+Make sure you have scipy
