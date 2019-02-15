@@ -105,7 +105,7 @@
             orientation: "vertical"
             FileChooserImageView:
                 id: filechooser
-				path: "/home/pi/Desktop/DemoDisplay/streetview"
+                path: "/home/pi/Desktop/DemoDisplay/streetview"
             BoxLayout:
                 size_hint_y: None
                 height: 30
@@ -117,23 +117,26 @@
                     text: "Load"
                     on_release: root.process(filechooser.path, filechooser.selection)
 <ProcessingScreen>:
-	valid: False
-	BoxLayout:
+    valid: False
+    BoxLayout:
         BoxLayout:
-        	Label:
-				text: 'What is this?'
-			Image:
-				id: testcase
-				size: 280,280
-				pos: root.pos()
-				source: 'atlas://data/images/defaulttheme/filechooser_file'
-			Button:
-				text: 'Menu'
-				on_press: root.reset()
-		BoxLayout:
-			Label:
-				id: guess
-				text: "Please wait"	
+            orientation: 'vertical'
+            Label:
+                text: 'What is this?'
+                size_hint_y: .1
+            Image:
+                id: testcase
+                allow_stretch: True
+                size: 160,160
+                source: 'atlas://data/images/defaulttheme/filechooser_file'
+            Button:
+                text: 'Menu'
+                size_hint_y: .4
+                on_press: root.reset()
+        BoxLayout:
+            Label:
+                id: message 
+                text: "No image loaded" 
 <DrawingScreen>:
     BoxLayout:
         BoxLayout:
@@ -146,8 +149,8 @@
                 text: 'Clear'
                 on_press: app.clear()
             Button:
-	            text: 'Process'
-				on_press: root.process()
+                text: 'Process'
+                on_press: root.process()
         AnchorLayout:
             padding: 200,10,10,100
             MNISTCanvas:           

@@ -2,7 +2,8 @@ import os
 os.environ['KIVY_BCM_DISPMANX_ID'] = '4'
 
 import re
-
+import PIL
+import scipy
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.widget import Widget
@@ -27,11 +28,25 @@ class LoadDialog(FloatLayout):
 
 class ProcessingScreen(Screen):
     def reset(self):
-		self.ids.testcase.source = 'atlas://data/images/defaulttheme/filechooser_file'
-		self.valid = False
+        self.ids.testcase.source = 'atlas://data/images/defaulttheme/filechooser_file'
+        self.valid = False
+        self.update_status('No image loaded')
+        self.manager.current = 'menu'
 
-	def process(self, index):
-		print 'Sent index %d for processing' % index
+
+    def process(self, fullfilename):
+        self.manager.current = 'processing'
+        self.ids.testcase.source = fullfilename
+        self.valid = True 
+        filename = fullfilename.split('/')[-1]
+        match = re.search('^svhn_(\d*)\.png$', filename)
+        self.update_status('Processing')
+        # SEND VALUE
+        print 'Sent index %d for processing' % int(match.group(1))
+        self.update_status('Is this a %d?'% 3)
+        
+    def update_status(self, message):
+        self.ids.message.text = message
 
 class ExitScreen(Screen):
     pass
@@ -40,15 +55,22 @@ class MenuScreen(Screen):
     pass
 
 class DrawingScreen(Screen):
-    pass
+    def process(self):
+        self.ids.mnist.export_to_png('tmp.png')
+        grayscale = PIL.Image.open('tmp.png').convert('L')
+        cropped = scipy.array(grayscale)[-280:,:280]
+        print cropped 
+        small = PIL.Image.fromarray(cropped)
+        small.thumbnail((28,28))
+        print small
+        small.save('small.png')
+        print scipy.array(small)
+
 
 class PicturesScreen(Screen):
     def process(self, path, name):
         print path, name
-		filname = path.split('/').[-1]
-		index = re.search('^svhn_(.)*\.png$', filename)
-		print filename, index.group(0)
-		return index.group(0)
+        self.manager.get_screen('processing').process(name[0])
 
 class MNISTCanvas(Widget):
     """
