@@ -66,13 +66,21 @@ class DrawingScreen(Screen):
         small.save('small.png')
         print scipy.array(small)
 
+        self.ids.guess.text = 'Sending image to process'
+        # Send image to process
+        guess = 3 
+        self.ids.guess.text = 'Is this a %d?' % guess
+
+    def reset(self):
+        self.ids.guess.text = 'Draw a digit for me to guess!'
+        self.ids.mnist.clear()
 
 class PicturesScreen(Screen):
     def process(self, path, name):
         print path, name
         self.manager.get_screen('processing').process(name[0])
 
-class MNISTCanvas(Widget):
+class MNISTCanvas(FloatLayout):
     """
     Our application main widget, derived from touchtracer example, use data
     constructed from touches to match symboles loaded from my_gestures.
@@ -94,9 +102,9 @@ class MNISTCanvas(Widget):
         if self.collide_point(touch.x, touch.y):
             with self.canvas:
                 Color(.2,.2,.2)
-                userdata['fade'] = Line(points=(touch.x, touch.y), width=5)
+                userdata['fade'] = Line(points=(touch.x, touch.y), width=8)
                 Color(0, 0, 0)
-                userdata['line'] = Line(points=(touch.x, touch.y), width=2)
+                userdata['line'] = Line(points=(touch.x, touch.y), width=5)
             return True
         else:
             return False
@@ -126,7 +134,7 @@ class MNISTCanvas(Widget):
             Color(1,1,1)
             Rectangle(pos=self.pos, size=self.size)
             print self.size, self.pos
-
+ 
 class DemoGesture(App):
     def build(self):
         sm = ScreenManager()
@@ -140,7 +148,7 @@ class DemoGesture(App):
         return self.sm
     
     def clear(self):
-        self.mnist.clear()
+        self.sm.get_screen('canvas').reset()
 
     def save_and_quit(self):
         print 'Saving'

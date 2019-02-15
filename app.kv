@@ -127,11 +127,11 @@
             Image:
                 id: testcase
                 allow_stretch: True
-                size: 160,160
+                size: 100,100
                 source: 'atlas://data/images/defaulttheme/filechooser_file'
             Button:
                 text: 'Menu'
-                size_hint_y: .4
+                size_hint_y: .2
                 on_press: root.reset()
         BoxLayout:
             Label:
@@ -151,12 +151,21 @@
             Button:
                 text: 'Process'
                 on_press: root.process()
-        AnchorLayout:
-            padding: 200,10,10,100
-            MNISTCanvas:           
-                id: mnist
-                size: 280, 280
-                valign: 'center'
-                halign: 'right'
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                id: guess
+                size_hint_y: .2
+                valign: 'top'
+                text: 'Draw a digit for me to guess!'
+            AnchorLayout:
+                size: 280,280
+                valign: 'bottom'
+                padding: 200,25,195,100
+                MNISTCanvas:           
+                    id: mnist
+                    size: 280, 280
+                    valign: 'center'
+                    halign: 'right'
 
 
