@@ -20,6 +20,8 @@ from kivy.lang import Builder
 
 from fileviewchoose import FileChooserImageView, ImagePreviewEntry
 
+import communicator
+
 Builder.load_file('app.kv')
 
 class LoadDialog(FloatLayout):
@@ -42,8 +44,8 @@ class ProcessingScreen(Screen):
         match = re.search('^svhn_(\d*)\.png$', filename)
         self.update_status('Processing')
         # SEND VALUE
-        print 'Sent index %d for processing' % int(match.group(1))
-        self.update_status('Is this a %d?'% 3)
+        guess = communicator.send_svhn_index(int(match.group(1)))
+        self.update_status('Is this a %d?'% guess)
         
     def update_status(self, message):
         self.ids.message.text = message
@@ -68,7 +70,7 @@ class DrawingScreen(Screen):
 
         self.ids.guess.text = 'Sending image to process'
         # Send image to process
-        guess = 3 
+        guess = communicator.send_mnist_image(scipy.array(small)) 
         self.ids.guess.text = 'Is this a %d?' % guess
 
     def reset(self):
