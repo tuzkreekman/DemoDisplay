@@ -93,9 +93,10 @@ class MNISTCanvas(Widget):
         userdata = touch.ud
         if self.collide_point(touch.x, touch.y):
             with self.canvas:
+                Color(.2,.2,.2)
+                userdata['fade'] = Line(points=(touch.x, touch.y), width=5)
                 Color(0, 0, 0)
-                d = 30.
-                userdata['line'] = Line(points=(touch.x, touch.y), width=5)
+                userdata['line'] = Line(points=(touch.x, touch.y), width=2)
             return True
         else:
             return False
@@ -105,6 +106,7 @@ class MNISTCanvas(Widget):
         try:
             if self.collide_point(touch.x, touch.y):
                 touch.ud['line'].points += [touch.x, touch.y]
+                touch.ud['fade'].points += [touch.x, touch.y]
                 return True
             else:
                 return False

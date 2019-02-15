@@ -4,11 +4,9 @@ from kivy.uix.widget import Widget
 
 class ImagePreviewEntry(Widget):
     def is_png(self, filename):
-        print 'checking if png', filename
         return (len(filename)>4) and filename[-4:] == '.png'
 
     def get_image(self, context):
-        print context
         if (not context.isdir) and self.is_png(context.name):
             return context.path
         return 'atlas://data/images/defaulttheme/filechooser_%s' % ('folder' if context.isdir else 'file')
