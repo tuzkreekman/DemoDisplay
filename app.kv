@@ -117,10 +117,12 @@
     BoxLayout:
         BoxLayout:
             orientation: 'vertical'
-            Button:
-                text: 'Menu'
+            AnchorLayout:
                 size_hint_y: .2
-                on_press: root.reset()
+                Button:
+                    text: 'Menu'
+                    size_hint_y: .8
+                    on_press: root.reset()
             Label:
                 text: 'What is this?'
                 size_hint_y: .1
@@ -130,9 +132,11 @@
                 size_hint_y: None
                 width: 100
                 source: 'atlas://data/images/defaulttheme/filechooser_file'
-            Button:
-                text: 'Start'
-                on_press: root.start()    
+            AnchorLayout:
+                Button:
+                    size_hint_y: .8
+                    text: 'Start'
+                    on_press: root.start()    
         BoxLayout:
             Label:
                 id: message 
