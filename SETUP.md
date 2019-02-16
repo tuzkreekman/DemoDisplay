@@ -19,9 +19,10 @@ sudo apt-get install raspberrypi-net-mods
 
 ## Tell Raspbian to use HDMI first, then GPIO
 
-Open `/boot/config` and add:
+Open `/boot/config.txt` and add:
 ```
-ignore_lcd=1
+display_default_lcd=0
+
 ```
 
 ## Make your life easier
