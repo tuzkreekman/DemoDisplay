@@ -39,7 +39,10 @@ class ProcessingScreen(Screen):
     def process(self, fullfilename):
         self.manager.current = 'processing'
         self.ids.testcase.source = fullfilename
-        self.valid = True 
+        self.valid = True
+        
+    def start(self):
+        fullfilename = self.ids.testcase.source
         filename = fullfilename.split('/')[-1]
         match = re.search('^svhn_(\d*)\.png$', filename)
         self.update_status('Processing')
@@ -80,6 +83,7 @@ class DrawingScreen(Screen):
 class PicturesScreen(Screen):
     def process(self, path, name):
         print path, name
+        self.manager.current = 'processing'
         self.manager.get_screen('processing').process(name[0])
 
 class MNISTCanvas(FloatLayout):

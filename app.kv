@@ -130,7 +130,10 @@
                 size_hint_y: None
                 width: 100
                 source: 'atlas://data/images/defaulttheme/filechooser_file'
-            Button:
+        	Button:
+				text: 'Start'
+				on_press: root.start()    
+			Button:
                 text: 'Menu'
                 size_hint_y: .2
                 on_press: root.reset()
