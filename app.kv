@@ -117,6 +117,10 @@
     BoxLayout:
         BoxLayout:
             orientation: 'vertical'
+            Button:
+                text: 'Menu'
+                size_hint_y: .2
+                on_press: root.reset()
             Label:
                 text: 'What is this?'
                 size_hint_y: .1
@@ -129,10 +133,6 @@
             Button:
                 text: 'Start'
                 on_press: root.start()    
-            Button:
-                text: 'Menu'
-                size_hint_y: .2
-                on_press: root.reset()
         BoxLayout:
             Label:
                 id: message 
