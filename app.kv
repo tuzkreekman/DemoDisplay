@@ -1,9 +1,14 @@
+<Widget>:
+    font_size: dp(30)
+<Button>:
+    halign: 'center'
+    valign: 'center'
 <FileChooserImageLayout>:
     on_entry_added: stacklayout.add_widget(args[1])
     on_entries_cleared: stacklayout.clear_widgets()
     ScrollView:
         id: scrollview
-        pos: root.pos
+        halign: 'center'
         size: root.size
         size_hint: None, None
         do_scroll_x: False
@@ -47,41 +52,32 @@
             source: 'atlas://data/images/defaulttheme/filechooser_selected'
 
     Image:
-        size: '48dp', '80dp'
+        size_hint_y: None
+        width: 84
+        allow_stretch: True
         source: root.get_image(ctx)
-        pos: root.x + dp(24), root.y + dp(40)
-    Label:
-        text: ctx.name
-        text_size: (root.width, self.height)
-        halign: 'center'
-        shorten: True
-        size: '100dp', '16dp'
-        pos: root.x, root.y + dp(16)
-
-    Label:
-        text: '{}'.format(ctx.get_nice_size())
-        font_size: '11sp'
-        color: .8, .8, .8, 1
-        size: '100dp', '16sp'
-        pos: root.pos
-        halign: 'center'
+        pos: root.x + dp(8), root.y
 
 <ExitScreen>:
     BoxLayout:
         Button:
             text: 'Just kidding, go to Main Menu'
+            text_size: self.size
             on_press: root.manager.current = 'menu'
         Button:
             text: 'Quit without Saving'
+            text_size: self.size
             on_press: app.stop()
         Button:
             text: 'Save & Quit'
+            text_size: self.size
             on_press: app.save_and_quit()
 <MenuScreen>:
     BoxLayout:
         orientation: 'vertical'
         Button:
             size_hint_y: .2
+            font_size: '50sp'
             text: 'Welcome!'
         BoxLayout:
             valign: 'bottom'
@@ -97,9 +93,9 @@
 <PicturesScreen>:
     BoxLayout:
         Label:
-            size_hint_x: .1
+            size_hint_x: .15
             text_size: self.size
-            valign: 'top'
+            valign: 'center'
             text: 'Pick a file to run a model on'
         BoxLayout:
             orientation: "vertical"
@@ -130,10 +126,10 @@
                 size_hint_y: None
                 width: 100
                 source: 'atlas://data/images/defaulttheme/filechooser_file'
-        	Button:
-				text: 'Start'
-				on_press: root.start()    
-			Button:
+            Button:
+                text: 'Start'
+                on_press: root.start()    
+            Button:
                 text: 'Menu'
                 size_hint_y: .2
                 on_press: root.reset()

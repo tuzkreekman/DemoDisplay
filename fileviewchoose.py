@@ -1,6 +1,11 @@
 from kivy.uix.filechooser import FileChooserController, FileChooserLayout 
 from kivy.uix.widget import Widget
 
+from os.path import (
+    basename, join, sep, normpath, expanduser, altsep,
+    splitdrive, realpath, getsize, isdir, abspath, isfile, dirname)
+from weakref import ref
+
 
 class ImagePreviewEntry(Widget):
     def is_png(self, filename):
@@ -15,6 +20,17 @@ class FileChooserImageView(FileChooserController):
     '''Implementation of a :class:`FileChooserController` using an image preview.
     '''
     _ENTRY_TEMPLATE = 'FileImageEntry'
+
+    def _generate_file_entries(self, *args, **kwargs):
+        # generate all the entries in the main directory
+        path = kwargs.get('path', self.path)
+        try:
+            for index, total, item in self._add_files(path):
+                yield index, total, item
+        except OSError:
+            Logger.exception('Unable to open directory <%s>' % self.path)
+            self.files[:] = []
+
 
 class FileChooserImageLayout(FileChooserLayout):
     '''File chooser layout using an image preview.
